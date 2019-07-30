@@ -1,4 +1,5 @@
-import { Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
+import Img from 'gatsby-image'
 import React from 'react'
 
 import styled from 'styled-components'
@@ -51,7 +52,25 @@ const FooterLink = styled(Link)<IFooterLinkProps>`
     &:focus {
     color: ${(props) => props.theme.color.link};
   }
+
+`// noinspection Annotator
+const QUERY = graphql`
+    query {
+        placeholderImage: file(relativePath: { eq: "license.png" }) {
+            childImageSharp {
+                fixed(width: 88) {
+                    ...GatsbyImageSharpFixed_withWebp
+                }
+            }
+        }
+    }
 `
+
+const LicenseImage: React.FunctionComponent = () => {
+  const data = useStaticQuery(QUERY)
+
+  return <Img fixed={data.placeholderImage.childImageSharp.fixed} />
+}
 
 interface IFooterProps {
   year?: number
@@ -62,10 +81,7 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => (
     <Section>
       <p>
         <A rel="license" href="//creativecommons.org/licenses/by-nc-sa/4.0/">
-          <img
-            alt="Creative Commons License"
-            src="https://d33wubrfki0l68.cloudfront.net/f44d61293838bbab5d914d3930edf8bb44784e3b/05591/img/license.png"
-          />
+          <LicenseImage alt="Creative Commons License"/>
         </A>
         <br/>
         <FooterLink to="terms-of-service">
