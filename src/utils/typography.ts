@@ -6,7 +6,7 @@ BootstrapTheme.plugins = [
   new CodePlugin(),
 ]
 
-BootstrapTheme.overrideThemeStyles = ({ rhythm }, options) => ({
+BootstrapTheme.overrideThemeStyles = () => ({
   'a': {
     color: '#212121',
   },

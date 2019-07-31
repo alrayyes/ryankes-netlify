@@ -1,12 +1,4 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Ryankes.eu
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/020873df-888f-4724-9f3f-cacfa7a82bed/deploy-status)](https://app.netlify.com/sites/clever-carson-885b56/deploys)
 
