@@ -32,3 +32,27 @@ collections:
       - {label: "Featured Image", name: "featuredimage", widget: image}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
+
+  - name: "pages"
+    label: "Pages"
+    folder: "src/pages"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "content-page"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "static"
+    label: static
+    files:
+      - file: "src/pages/index.md"
+        name: "index"
+        label: "Index"
+        fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
+          - {label: "Image", name: "image", widget: image}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Heading", name: "heading", widget: "string"}
+          - {label: "Subheading", name: "subheading", widget: "string"}
+
+
