@@ -19,7 +19,7 @@ import { Rss } from 'styled-icons/fa-solid/Rss'
 // tslint:disable-next-line:no-submodule-imports
 import { StyledIcon } from 'styled-icons/types'
 
-import { Container, Fab } from '../components/css/main'
+import { Container, Fab } from '../styles/main'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'

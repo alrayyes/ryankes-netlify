@@ -19,13 +19,6 @@ export const Fab = css`
   height: 32px;
 `
 
-export const Fas = css`
-  height: 32px;
-`
 export const FloatRight = css`
   float: right;
-`
-
-export const FloatLeft = css`
-  float: left;
 `
