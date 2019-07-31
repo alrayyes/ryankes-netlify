@@ -72,13 +72,9 @@ const H1 = styled.h1`
   margin-top: 2.0rem;
   margin-bottom: 0.5rem;
 `
-const H2 = styled.h1`
+const H2 = styled.h2`
   margin-top: 1.0rem;
   margin-bottom: 0.5rem;
-  font-size: 2.4rem;
-  @media only screen and (max-width : 768px) {
-    font-size: 2.0rem;
-  }
 `
 
 const Icons = styled.ul`
@@ -92,28 +88,9 @@ const IconElement = styled.li`
   position: relative;
 `
 
-interface IIconLinkProps {
-  theme: {
-    color: {
-      fg: string,
-      link: string,
-    },
-  }
-}
-
-const IconLink = styled.a<IIconLinkProps>`
-  color: ${(props) => props.theme.color.fg};
-  text-transform: uppercase;
+const IconLink = styled.a`
   margin-left: 1.0rem;
   margin-right: 1.0rem;
-  font-size: 1.6rem;
-  &:hover,
-  &:focus {
-    color: ${(props) => props.theme.color.link};
-  }
-  @media only screen and (max-width : 768px) {
-    font-size: 1.4rem;
-  }
 `
 
 interface IconPropsInterface {

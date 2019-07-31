@@ -78,6 +78,13 @@ SEO.defaultProps = {
   meta: [],
 }
 
+interface ISEOProps {
+  description: string,
+  lang: string,
+  meta: Array,
+  title: string
+}
+
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,

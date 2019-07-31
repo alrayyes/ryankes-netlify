@@ -16,44 +16,13 @@ const Section = styled.section`
   ${Container}
 `
 
-interface IAProps {
-  theme: {
-    color: {
-      link: string,
-    },
-  }
-}
-
-const A = styled.a<IAProps>`
-  color: ${(props) => props.theme.color.link}
-`
-
-interface IFooterLinkProps {
-  theme: {
-    font: {
-      heading: string,
-    },
-    color: {
-      fg: string,
-      link: string,
-    },
-  }
-}
-
-const FooterLink = styled(Link)<IFooterLinkProps>`
+const FooterLink = styled(Link)`
   margin-left: 1.0rem;
   margin-right: 1.0rem;
   display: inline;
-  font-size: 1.6rem;
-  font-family: ${(props) => props.theme.font.heading};
-  font-weight: 700;
-  color: ${(props) => props.theme.color.fg};
-  &:hover,
-    &:focus {
-    color: ${(props) => props.theme.color.link};
-  }
+`
 
-`// noinspection Annotator
+// noinspection Annotator
 const QUERY = graphql`
     query {
         placeholderImage: file(relativePath: { eq: "license.png" }) {
@@ -69,7 +38,15 @@ const QUERY = graphql`
 const LicenseImage: React.FunctionComponent = () => {
   const data = useStaticQuery(QUERY)
 
-  return <Img fixed={data.placeholderImage.childImageSharp.fixed} />
+  return <Img fixed={data.placeholderImage.childImageSharp.fixed} alt="Creative Commons License"/>
+}
+
+const LicenseImageLink: React.FunctionComponent = () => {
+  return (
+    <a rel="license" href="//creativecommons.org/licenses/by-nc-sa/4.0/">
+      <LicenseImage/>
+    </a>
+  )
 }
 
 interface IFooterProps {
@@ -79,18 +56,15 @@ interface IFooterProps {
 const Footer: React.FunctionComponent<IFooterProps> = (props) => (
   <Wrapper>
     <Section>
-      <p>
-        <A rel="license" href="//creativecommons.org/licenses/by-nc-sa/4.0/">
-          <LicenseImage alt="Creative Commons License"/>
-        </A>
-        <br/>
-        <FooterLink to="terms-of-service">
-          Terms Of Service
-        </FooterLink> -
-        <FooterLink to="privacy-policy">
-          Privacy Policy
-        </FooterLink>
-      </p>
+      <LicenseImageLink/>
+      <br/>
+      <FooterLink to="terms-of-service">
+        Terms Of Service
+      </FooterLink> -
+      <FooterLink to="privacy-policy">
+        Privacy Policy
+      </FooterLink>
+      <br/>
       © {props.year}
     </Section>
   </Wrapper>

@@ -16,32 +16,12 @@ const Section = styled.section`
   ${Container}
 `
 
-interface ISectionLinkProps {
-  theme: {
-    font: {
-      heading: string,
-    },
-    color: {
-      fg: string,
-      link: string,
-    },
-  }
-}
-
-const SectionLink = styled(Link)<ISectionLinkProps>`
+const SectionLink = styled(Link)`
   letter-spacing: .1rem;
   text-transform: uppercase;
 
   display: inline;
-  font-size: 1.6rem;
-  font-family: ${(props) => props.theme.font.heading};
-  font-weight: 700;
   line-height: 6.0rem;
-  color: ${(props) => props.theme.color.fg};
-  &:hover,
-    &:focus {
-    color: ${(props) => props.theme.color.link};
-  }
 `
 
 interface IInputProps {
@@ -67,28 +47,12 @@ const Input = styled.input<IInputProps>`
   }
 `
 
-interface ILabelProps {
-  theme: {
-    color: {
-      fg: string,
-      link: string,
-    },
-  }
-}
-
-const Label = styled.label<ILabelProps>`
+const Label = styled.label`
   display: none;
     @media only screen and (max-width : 768px) {
       display: block;
-      font-size: 2.4rem;
-      font-weight: 400;
       line-height: 6.0rem;
-      color: ${(props) => props.theme.color.fg};
       cursor: pointer;
-      &:hover,
-      &:focus {
-        color: ${(props) => props.theme.color.link};
-      }
     }
   ${FloatRight}
 `
@@ -135,9 +99,6 @@ const ListElement = styled.li`
 
 interface IPageLinkProps {
   theme: {
-    font: {
-      heading: string,
-    },
     color: {
       fg: string,
     },
@@ -148,19 +109,10 @@ const PageLink = styled(Link)<IPageLinkProps>`
   margin-left: 1.0rem;
   margin-right: 1.0rem;
   display: inline;
-  font-size: 1.6rem;
-  font-family: ${(props) => props.theme.font.heading};
-  font-weight: 700;
   line-height: 6.0rem;
-  color: ${(props) => props.theme.color.fg};
-  &:hover,
-    &:focus {
-    color: ${(props) => props.theme.color.link};
-  }
 `
 
 const BarsIcon = styled(Bars)`
-  font-weight: 900;
   width: 21px;
   vertical-align: 0;
 `

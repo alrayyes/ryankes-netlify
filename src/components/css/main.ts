@@ -17,12 +17,10 @@ export const Wrapper = css`
 `
 export const Fab = css`
   height: 32px;
-  font-weight: 400;
 `
 
 export const Fas = css`
   height: 32px;
-  font-weight: 900;
 `
 export const FloatRight = css`
   float: right;
