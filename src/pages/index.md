@@ -1,5 +1,6 @@
 ---
-templateKey: index-page 
-title = "About"
-date = 2019-06-28T19:48:45+02:00
+title: Home
+heading: Ryan Kes
+subheading: I build stuff and complain here from time to time.
 ---
+
