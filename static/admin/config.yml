@@ -2,40 +2,49 @@ backend:
   name: git-gateway
   branch: master
 
+publish_mode: editorial_workflow
 media_folder: static/img
 public_folder: /img
 
 collections:
   - name: "blog"
-    label: "Blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
     folder: "src/pages/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "Version: {{version}} - {{title}}"
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Featured Image", name: "featuredimage", widget: image, required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
 
   - name: "project"
-    label: "Project"
+    label: "Projects"
+    label_singular: "Project"
     folder: "src/pages/project"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "Version: {{version}} - {{title}}"
     fields:
-      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post"}
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "project-page"}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "featuredimage", widget: image}
+      - {label: "Featured Image", name: "featuredimage", widget: image, required: false}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
 
   - name: "pages"
     label: "Pages"
+    label_singular: "Page"
     folder: "src/pages"
+    delete: false
+    slug: "{{slug}}"
+    summary: "Version: {{version}} - {{title}}"
+    filter: {field: "templateKey", value: "content-page"}
     fields:
       - {label: "Template Key", name: "templateKey", widget: "hidden", default: "content-page"}
       - {label: "Title", name: "title", widget: "string"}
@@ -43,7 +52,10 @@ collections:
       - {label: "Body", name: "body", widget: "markdown"}
 
   - name: "static"
-    label: static
+    label: "Static Pages"
+    label_singular: "Static Page"
+    delete: false
+    summary: "Version: {{version}} - Home"
     files:
       - file: "src/pages/index.md"
         name: "index"
