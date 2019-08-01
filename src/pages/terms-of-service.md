@@ -1,7 +1,7 @@
 ---
 templateKey: content-page 
-title = "Terms of Service"
-date = 2019-06-28T19:21:39+02:00
+title: "Terms of Service"
+date: 2019-06-28T19:21:39+02:00
 ---
 
 ## 1. Terms

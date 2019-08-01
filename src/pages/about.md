@@ -1,7 +1,7 @@
 ---
 templateKey: content-page 
-title = "About"
-date = 2019-06-28T19:48:45+02:00
+title: "About"
+date: 2019-06-28T19:48:45+02:00
 ---
 
 ## What OS do you run?
