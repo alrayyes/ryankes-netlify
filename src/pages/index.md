@@ -1,8 +1,7 @@
 ---
 templateKey: index-page
 image: /img/profile.png
-title: Home
-heading: Ryan Kes
+heading: Ryan Kes 32
 subheading: I build stuff and complain here from time to time.
 ---
 
