@@ -197,6 +197,7 @@ type File implements Node {
         locale: String
     ): Date
     childImageSharp: ImageSharp
+    childMarkdownRemark: MarkdownRemark
     children: [Node!]!
     ctime(
         #Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\".
@@ -437,6 +438,86 @@ type Internal {
     type: String!
 }
 
+type MarkdownHeading {
+    depth: Int
+    value: String
+}
+
+type MarkdownRemark implements Node {
+    children: [Node!]!
+    excerpt(format: MarkdownExcerptFormats = PLAIN, pruneLength: Int = 140, truncate: Boolean = false): String
+    excerptAst(pruneLength: Int = 140, truncate: Boolean = false): JSON
+    fields: MarkdownRemarkFields
+    fileAbsolutePath: String
+    frontmatter: MarkdownRemarkFrontmatter
+    headings(depth: MarkdownHeadingLevels): [MarkdownHeading]
+    html: String
+    htmlAst: JSON
+    id: ID!
+    internal: Internal!
+    parent: Node
+    rawMarkdownBody: String
+    tableOfContents(heading: String, maxDepth: Int, pathToSlugField: String = "fields.slug"): String
+    timeToRead: Int
+    wordCount: MarkdownWordCount
+}
+
+type MarkdownRemarkConnection {
+    distinct(field: MarkdownRemarkFieldsEnum!): [String!]!
+    edges: [MarkdownRemarkEdge!]!
+    group(field: MarkdownRemarkFieldsEnum!, limit: Int, skip: Int): [MarkdownRemarkGroupConnection!]!
+    nodes: [MarkdownRemark!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type MarkdownRemarkEdge {
+    next: MarkdownRemark
+    node: MarkdownRemark!
+    previous: MarkdownRemark
+}
+
+type MarkdownRemarkFields {
+    slug: String
+}
+
+type MarkdownRemarkFrontmatter {
+    date(
+        #Returns the difference between this date and the current time. Defaults to \"milliseconds\" but you can also pass in as the measurement \"years\", \"months\", \"weeks\", \"days\", \"hours\", \"minutes\", and \"seconds\".
+        difference: String,
+        #Format the date using Moment.js' date tokens, e.g. `date(formatString: \"YYYY MMMM DD\")`. See https://momentjs.com/docs/#/displaying/format/ for documentation for different tokens.
+        formatString: String,
+        #Returns a string generated with Moment.js' `fromNow` function
+        fromNow: Boolean,
+        #Configures the locale Moment.js will use to format the date.
+        locale: String
+    ): Date
+    description: String
+    featuredimage: String
+    featuredpost: Boolean
+    heading: String
+    image: File
+    subheading: String
+    tags: [String]
+    templateKey: String
+    title: String
+}
+
+type MarkdownRemarkGroupConnection {
+    edges: [MarkdownRemarkEdge!]!
+    field: String!
+    fieldValue: String
+    nodes: [MarkdownRemark!]!
+    pageInfo: PageInfo!
+    totalCount: Int!
+}
+
+type MarkdownWordCount {
+    paragraphs: Int
+    sentences: Int
+    words: Int
+}
+
 type PageInfo {
     currentPage: Int!
     hasNextPage: Boolean!
@@ -450,14 +531,16 @@ type Query {
     allDirectory(filter: DirectoryFilterInput, limit: Int, skip: Int, sort: DirectorySortInput): DirectoryConnection
     allFile(filter: FileFilterInput, limit: Int, skip: Int, sort: FileSortInput): FileConnection
     allImageSharp(filter: ImageSharpFilterInput, limit: Int, skip: Int, sort: ImageSharpSortInput): ImageSharpConnection
+    allMarkdownRemark(filter: MarkdownRemarkFilterInput, limit: Int, skip: Int, sort: MarkdownRemarkSortInput): MarkdownRemarkConnection
     allSite(filter: SiteFilterInput, limit: Int, skip: Int, sort: SiteSortInput): SiteConnection
     allSitePage(filter: SitePageFilterInput, limit: Int, skip: Int, sort: SitePageSortInput): SitePageConnection
     allSitePlugin(filter: SitePluginFilterInput, limit: Int, skip: Int, sort: SitePluginSortInput): SitePluginConnection
     directory(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: IntQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): Directory
-    file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: IntQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): File
+    file(absolutePath: StringQueryOperatorInput, accessTime: DateQueryOperatorInput, atime: DateQueryOperatorInput, atimeMs: FloatQueryOperatorInput, base: StringQueryOperatorInput, birthTime: DateQueryOperatorInput, birthtime: DateQueryOperatorInput, birthtimeMs: FloatQueryOperatorInput, blksize: IntQueryOperatorInput, blocks: IntQueryOperatorInput, changeTime: DateQueryOperatorInput, childImageSharp: ImageSharpFilterInput, childMarkdownRemark: MarkdownRemarkFilterInput, children: NodeFilterListInput, ctime: DateQueryOperatorInput, ctimeMs: FloatQueryOperatorInput, dev: IntQueryOperatorInput, dir: StringQueryOperatorInput, ext: StringQueryOperatorInput, extension: StringQueryOperatorInput, gid: IntQueryOperatorInput, id: StringQueryOperatorInput, ino: IntQueryOperatorInput, internal: InternalFilterInput, mode: IntQueryOperatorInput, modifiedTime: DateQueryOperatorInput, mtime: DateQueryOperatorInput, mtimeMs: FloatQueryOperatorInput, name: StringQueryOperatorInput, nlink: IntQueryOperatorInput, parent: NodeFilterInput, prettySize: StringQueryOperatorInput, publicURL: StringQueryOperatorInput, rdev: IntQueryOperatorInput, relativeDirectory: StringQueryOperatorInput, relativePath: StringQueryOperatorInput, root: StringQueryOperatorInput, size: IntQueryOperatorInput, sourceInstanceName: StringQueryOperatorInput, uid: IntQueryOperatorInput): File
     imageSharp(children: NodeFilterListInput, fixed: ImageSharpFixedFilterInput, fluid: ImageSharpFluidFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, original: ImageSharpOriginalFilterInput, parent: NodeFilterInput, resize: ImageSharpResizeFilterInput, resolutions: ImageSharpResolutionsFilterInput, sizes: ImageSharpSizesFilterInput): ImageSharp
+    markdownRemark(children: NodeFilterListInput, excerpt: StringQueryOperatorInput, excerptAst: JSONQueryOperatorInput, fields: MarkdownRemarkFieldsFilterInput, fileAbsolutePath: StringQueryOperatorInput, frontmatter: MarkdownRemarkFrontmatterFilterInput, headings: MarkdownHeadingFilterListInput, html: StringQueryOperatorInput, htmlAst: JSONQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, rawMarkdownBody: StringQueryOperatorInput, tableOfContents: StringQueryOperatorInput, timeToRead: IntQueryOperatorInput, wordCount: MarkdownWordCountFilterInput): MarkdownRemark
     site(buildTime: DateQueryOperatorInput, children: NodeFilterListInput, host: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, parent: NodeFilterInput, pathPrefix: StringQueryOperatorInput, polyfill: BooleanQueryOperatorInput, port: IntQueryOperatorInput, siteMetadata: SiteSiteMetadataFilterInput): Site
-    sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
+    sitePage(children: NodeFilterListInput, component: StringQueryOperatorInput, componentChunkName: StringQueryOperatorInput, componentPath: StringQueryOperatorInput, context: SitePageContextFilterInput, id: StringQueryOperatorInput, internal: InternalFilterInput, internalComponentName: StringQueryOperatorInput, isCreatedByStatefulCreatePages: BooleanQueryOperatorInput, parent: NodeFilterInput, path: StringQueryOperatorInput, pluginCreator: SitePluginFilterInput, pluginCreatorId: StringQueryOperatorInput): SitePage
     sitePlugin(browserAPIs: StringQueryOperatorInput, children: NodeFilterListInput, id: StringQueryOperatorInput, internal: InternalFilterInput, name: StringQueryOperatorInput, nodeAPIs: StringQueryOperatorInput, packageJson: SitePluginPackageJsonFilterInput, parent: NodeFilterInput, pluginFilepath: StringQueryOperatorInput, pluginOptions: SitePluginPluginOptionsFilterInput, resolve: StringQueryOperatorInput, ssrAPIs: StringQueryOperatorInput, version: StringQueryOperatorInput): SitePlugin
 }
 
@@ -512,6 +595,7 @@ type SitePage implements Node {
     component: String
     componentChunkName: String
     componentPath: String
+    context: SitePageContext
     id: ID!
     internal: Internal!
     internalComponentName: String
@@ -529,6 +613,11 @@ type SitePageConnection {
     nodes: [SitePage!]!
     pageInfo: PageInfo!
     totalCount: Int!
+}
+
+type SitePageContext {
+    id: String
+    tag: String
 }
 
 type SitePageEdge {
@@ -615,16 +704,47 @@ type SitePluginPackageJsonPeerDependencies {
 }
 
 type SitePluginPluginOptions {
-    background_color: String
-    display: String
-    icon: String
+    backgroundColor: String
+    destinationDir: String
+    ignoreFileExtensions: [String]
+    linkImagesToOriginal: Boolean
+    maxWidth: Int
     modulePath: String
     name: String
     path: String
     pathCheck: Boolean
-    short_name: String
-    start_url: String
-    theme_color: String
+    pathPrefix: String
+    pathToConfigModule: String
+    plugins: [SitePluginPluginOptionsPlugins]
+    showCaptions: Boolean
+    tracedSVG: Boolean
+    withWebp: Boolean
+    wrapperStyle: String
+}
+
+type SitePluginPluginOptionsPlugins {
+    browserAPIs: [String]
+    id: String
+    name: String
+    pluginFilepath: String
+    pluginOptions: SitePluginPluginOptionsPluginsPluginOptions
+    resolve: String
+    ssrAPIs: [String]
+    version: String
+}
+
+type SitePluginPluginOptionsPluginsPluginOptions {
+    backgroundColor: String
+    destinationDir: String
+    ignoreFileExtensions: [String]
+    linkImagesToOriginal: Boolean
+    maxWidth: Int
+    name: String
+    pathPrefix: String
+    showCaptions: Boolean
+    tracedSVG: Boolean
+    withWebp: Boolean
+    wrapperStyle: String
 }
 
 type SiteSiteMetadata {
@@ -859,6 +979,104 @@ enum FileFieldsEnum {
     childImageSharp___sizes___srcSetWebp
     childImageSharp___sizes___srcWebp
     childImageSharp___sizes___tracedSVG
+    childMarkdownRemark___children
+    childMarkdownRemark___children___children
+    childMarkdownRemark___children___children___children
+    childMarkdownRemark___children___children___id
+    childMarkdownRemark___children___id
+    childMarkdownRemark___children___internal___content
+    childMarkdownRemark___children___internal___contentDigest
+    childMarkdownRemark___children___internal___description
+    childMarkdownRemark___children___internal___fieldOwners
+    childMarkdownRemark___children___internal___ignoreType
+    childMarkdownRemark___children___internal___mediaType
+    childMarkdownRemark___children___internal___owner
+    childMarkdownRemark___children___internal___type
+    childMarkdownRemark___children___parent___children
+    childMarkdownRemark___children___parent___id
+    childMarkdownRemark___excerpt
+    childMarkdownRemark___excerptAst
+    childMarkdownRemark___fields___slug
+    childMarkdownRemark___fileAbsolutePath
+    childMarkdownRemark___frontmatter___date
+    childMarkdownRemark___frontmatter___description
+    childMarkdownRemark___frontmatter___featuredimage
+    childMarkdownRemark___frontmatter___featuredpost
+    childMarkdownRemark___frontmatter___heading
+    childMarkdownRemark___frontmatter___image___absolutePath
+    childMarkdownRemark___frontmatter___image___accessTime
+    childMarkdownRemark___frontmatter___image___atime
+    childMarkdownRemark___frontmatter___image___atimeMs
+    childMarkdownRemark___frontmatter___image___base
+    childMarkdownRemark___frontmatter___image___birthTime
+    childMarkdownRemark___frontmatter___image___birthtime
+    childMarkdownRemark___frontmatter___image___birthtimeMs
+    childMarkdownRemark___frontmatter___image___blksize
+    childMarkdownRemark___frontmatter___image___blocks
+    childMarkdownRemark___frontmatter___image___changeTime
+    childMarkdownRemark___frontmatter___image___children
+    childMarkdownRemark___frontmatter___image___ctime
+    childMarkdownRemark___frontmatter___image___ctimeMs
+    childMarkdownRemark___frontmatter___image___dev
+    childMarkdownRemark___frontmatter___image___dir
+    childMarkdownRemark___frontmatter___image___ext
+    childMarkdownRemark___frontmatter___image___extension
+    childMarkdownRemark___frontmatter___image___gid
+    childMarkdownRemark___frontmatter___image___id
+    childMarkdownRemark___frontmatter___image___ino
+    childMarkdownRemark___frontmatter___image___mode
+    childMarkdownRemark___frontmatter___image___modifiedTime
+    childMarkdownRemark___frontmatter___image___mtime
+    childMarkdownRemark___frontmatter___image___mtimeMs
+    childMarkdownRemark___frontmatter___image___name
+    childMarkdownRemark___frontmatter___image___nlink
+    childMarkdownRemark___frontmatter___image___prettySize
+    childMarkdownRemark___frontmatter___image___publicURL
+    childMarkdownRemark___frontmatter___image___rdev
+    childMarkdownRemark___frontmatter___image___relativeDirectory
+    childMarkdownRemark___frontmatter___image___relativePath
+    childMarkdownRemark___frontmatter___image___root
+    childMarkdownRemark___frontmatter___image___size
+    childMarkdownRemark___frontmatter___image___sourceInstanceName
+    childMarkdownRemark___frontmatter___image___uid
+    childMarkdownRemark___frontmatter___subheading
+    childMarkdownRemark___frontmatter___tags
+    childMarkdownRemark___frontmatter___templateKey
+    childMarkdownRemark___frontmatter___title
+    childMarkdownRemark___headings
+    childMarkdownRemark___headings___depth
+    childMarkdownRemark___headings___value
+    childMarkdownRemark___html
+    childMarkdownRemark___htmlAst
+    childMarkdownRemark___id
+    childMarkdownRemark___internal___content
+    childMarkdownRemark___internal___contentDigest
+    childMarkdownRemark___internal___description
+    childMarkdownRemark___internal___fieldOwners
+    childMarkdownRemark___internal___ignoreType
+    childMarkdownRemark___internal___mediaType
+    childMarkdownRemark___internal___owner
+    childMarkdownRemark___internal___type
+    childMarkdownRemark___parent___children
+    childMarkdownRemark___parent___children___children
+    childMarkdownRemark___parent___children___id
+    childMarkdownRemark___parent___id
+    childMarkdownRemark___parent___internal___content
+    childMarkdownRemark___parent___internal___contentDigest
+    childMarkdownRemark___parent___internal___description
+    childMarkdownRemark___parent___internal___fieldOwners
+    childMarkdownRemark___parent___internal___ignoreType
+    childMarkdownRemark___parent___internal___mediaType
+    childMarkdownRemark___parent___internal___owner
+    childMarkdownRemark___parent___internal___type
+    childMarkdownRemark___parent___parent___children
+    childMarkdownRemark___parent___parent___id
+    childMarkdownRemark___rawMarkdownBody
+    childMarkdownRemark___tableOfContents
+    childMarkdownRemark___timeToRead
+    childMarkdownRemark___wordCount___paragraphs
+    childMarkdownRemark___wordCount___sentences
+    childMarkdownRemark___wordCount___words
     children
     children___children
     children___children___children
@@ -1139,6 +1357,195 @@ enum ImageSharpFieldsEnum {
     sizes___tracedSVG
 }
 
+enum MarkdownExcerptFormats {
+    HTML
+    MARKDOWN
+    PLAIN
+}
+
+enum MarkdownHeadingLevels {
+    h1
+    h2
+    h3
+    h4
+    h5
+    h6
+}
+
+enum MarkdownRemarkFieldsEnum {
+    children
+    children___children
+    children___children___children
+    children___children___children___children
+    children___children___children___id
+    children___children___id
+    children___children___internal___content
+    children___children___internal___contentDigest
+    children___children___internal___description
+    children___children___internal___fieldOwners
+    children___children___internal___ignoreType
+    children___children___internal___mediaType
+    children___children___internal___owner
+    children___children___internal___type
+    children___children___parent___children
+    children___children___parent___id
+    children___id
+    children___internal___content
+    children___internal___contentDigest
+    children___internal___description
+    children___internal___fieldOwners
+    children___internal___ignoreType
+    children___internal___mediaType
+    children___internal___owner
+    children___internal___type
+    children___parent___children
+    children___parent___children___children
+    children___parent___children___id
+    children___parent___id
+    children___parent___internal___content
+    children___parent___internal___contentDigest
+    children___parent___internal___description
+    children___parent___internal___fieldOwners
+    children___parent___internal___ignoreType
+    children___parent___internal___mediaType
+    children___parent___internal___owner
+    children___parent___internal___type
+    children___parent___parent___children
+    children___parent___parent___id
+    excerpt
+    excerptAst
+    fields___slug
+    fileAbsolutePath
+    frontmatter___date
+    frontmatter___description
+    frontmatter___featuredimage
+    frontmatter___featuredpost
+    frontmatter___heading
+    frontmatter___image___absolutePath
+    frontmatter___image___accessTime
+    frontmatter___image___atime
+    frontmatter___image___atimeMs
+    frontmatter___image___base
+    frontmatter___image___birthTime
+    frontmatter___image___birthtime
+    frontmatter___image___birthtimeMs
+    frontmatter___image___blksize
+    frontmatter___image___blocks
+    frontmatter___image___changeTime
+    frontmatter___image___childImageSharp___children
+    frontmatter___image___childImageSharp___id
+    frontmatter___image___childMarkdownRemark___children
+    frontmatter___image___childMarkdownRemark___excerpt
+    frontmatter___image___childMarkdownRemark___excerptAst
+    frontmatter___image___childMarkdownRemark___fileAbsolutePath
+    frontmatter___image___childMarkdownRemark___headings
+    frontmatter___image___childMarkdownRemark___html
+    frontmatter___image___childMarkdownRemark___htmlAst
+    frontmatter___image___childMarkdownRemark___id
+    frontmatter___image___childMarkdownRemark___rawMarkdownBody
+    frontmatter___image___childMarkdownRemark___tableOfContents
+    frontmatter___image___childMarkdownRemark___timeToRead
+    frontmatter___image___children
+    frontmatter___image___children___children
+    frontmatter___image___children___id
+    frontmatter___image___ctime
+    frontmatter___image___ctimeMs
+    frontmatter___image___dev
+    frontmatter___image___dir
+    frontmatter___image___ext
+    frontmatter___image___extension
+    frontmatter___image___gid
+    frontmatter___image___id
+    frontmatter___image___ino
+    frontmatter___image___internal___content
+    frontmatter___image___internal___contentDigest
+    frontmatter___image___internal___description
+    frontmatter___image___internal___fieldOwners
+    frontmatter___image___internal___ignoreType
+    frontmatter___image___internal___mediaType
+    frontmatter___image___internal___owner
+    frontmatter___image___internal___type
+    frontmatter___image___mode
+    frontmatter___image___modifiedTime
+    frontmatter___image___mtime
+    frontmatter___image___mtimeMs
+    frontmatter___image___name
+    frontmatter___image___nlink
+    frontmatter___image___parent___children
+    frontmatter___image___parent___id
+    frontmatter___image___prettySize
+    frontmatter___image___publicURL
+    frontmatter___image___rdev
+    frontmatter___image___relativeDirectory
+    frontmatter___image___relativePath
+    frontmatter___image___root
+    frontmatter___image___size
+    frontmatter___image___sourceInstanceName
+    frontmatter___image___uid
+    frontmatter___subheading
+    frontmatter___tags
+    frontmatter___templateKey
+    frontmatter___title
+    headings
+    headings___depth
+    headings___value
+    html
+    htmlAst
+    id
+    internal___content
+    internal___contentDigest
+    internal___description
+    internal___fieldOwners
+    internal___ignoreType
+    internal___mediaType
+    internal___owner
+    internal___type
+    parent___children
+    parent___children___children
+    parent___children___children___children
+    parent___children___children___id
+    parent___children___id
+    parent___children___internal___content
+    parent___children___internal___contentDigest
+    parent___children___internal___description
+    parent___children___internal___fieldOwners
+    parent___children___internal___ignoreType
+    parent___children___internal___mediaType
+    parent___children___internal___owner
+    parent___children___internal___type
+    parent___children___parent___children
+    parent___children___parent___id
+    parent___id
+    parent___internal___content
+    parent___internal___contentDigest
+    parent___internal___description
+    parent___internal___fieldOwners
+    parent___internal___ignoreType
+    parent___internal___mediaType
+    parent___internal___owner
+    parent___internal___type
+    parent___parent___children
+    parent___parent___children___children
+    parent___parent___children___id
+    parent___parent___id
+    parent___parent___internal___content
+    parent___parent___internal___contentDigest
+    parent___parent___internal___description
+    parent___parent___internal___fieldOwners
+    parent___parent___internal___ignoreType
+    parent___parent___internal___mediaType
+    parent___parent___internal___owner
+    parent___parent___internal___type
+    parent___parent___parent___children
+    parent___parent___parent___id
+    rawMarkdownBody
+    tableOfContents
+    timeToRead
+    wordCount___paragraphs
+    wordCount___sentences
+    wordCount___words
+}
+
 enum PotraceTurnPolicy {
     TURNPOLICY_BLACK
     TURNPOLICY_LEFT
@@ -1289,6 +1696,8 @@ enum SitePageFieldsEnum {
     component
     componentChunkName
     componentPath
+    context___id
+    context___tag
     id
     internalComponentName
     internal___content
@@ -1398,16 +1807,29 @@ enum SitePageFieldsEnum {
     pluginCreator___parent___parent___children
     pluginCreator___parent___parent___id
     pluginCreator___pluginFilepath
-    pluginCreator___pluginOptions___background_color
-    pluginCreator___pluginOptions___display
-    pluginCreator___pluginOptions___icon
+    pluginCreator___pluginOptions___backgroundColor
+    pluginCreator___pluginOptions___destinationDir
+    pluginCreator___pluginOptions___ignoreFileExtensions
+    pluginCreator___pluginOptions___linkImagesToOriginal
+    pluginCreator___pluginOptions___maxWidth
     pluginCreator___pluginOptions___modulePath
     pluginCreator___pluginOptions___name
     pluginCreator___pluginOptions___path
     pluginCreator___pluginOptions___pathCheck
-    pluginCreator___pluginOptions___short_name
-    pluginCreator___pluginOptions___start_url
-    pluginCreator___pluginOptions___theme_color
+    pluginCreator___pluginOptions___pathPrefix
+    pluginCreator___pluginOptions___pathToConfigModule
+    pluginCreator___pluginOptions___plugins
+    pluginCreator___pluginOptions___plugins___browserAPIs
+    pluginCreator___pluginOptions___plugins___id
+    pluginCreator___pluginOptions___plugins___name
+    pluginCreator___pluginOptions___plugins___pluginFilepath
+    pluginCreator___pluginOptions___plugins___resolve
+    pluginCreator___pluginOptions___plugins___ssrAPIs
+    pluginCreator___pluginOptions___plugins___version
+    pluginCreator___pluginOptions___showCaptions
+    pluginCreator___pluginOptions___tracedSVG
+    pluginCreator___pluginOptions___withWebp
+    pluginCreator___pluginOptions___wrapperStyle
     pluginCreator___resolve
     pluginCreator___ssrAPIs
     pluginCreator___version
@@ -1520,16 +1942,40 @@ enum SitePluginFieldsEnum {
     parent___parent___parent___children
     parent___parent___parent___id
     pluginFilepath
-    pluginOptions___background_color
-    pluginOptions___display
-    pluginOptions___icon
+    pluginOptions___backgroundColor
+    pluginOptions___destinationDir
+    pluginOptions___ignoreFileExtensions
+    pluginOptions___linkImagesToOriginal
+    pluginOptions___maxWidth
     pluginOptions___modulePath
     pluginOptions___name
     pluginOptions___path
     pluginOptions___pathCheck
-    pluginOptions___short_name
-    pluginOptions___start_url
-    pluginOptions___theme_color
+    pluginOptions___pathPrefix
+    pluginOptions___pathToConfigModule
+    pluginOptions___plugins
+    pluginOptions___plugins___browserAPIs
+    pluginOptions___plugins___id
+    pluginOptions___plugins___name
+    pluginOptions___plugins___pluginFilepath
+    pluginOptions___plugins___pluginOptions___backgroundColor
+    pluginOptions___plugins___pluginOptions___destinationDir
+    pluginOptions___plugins___pluginOptions___ignoreFileExtensions
+    pluginOptions___plugins___pluginOptions___linkImagesToOriginal
+    pluginOptions___plugins___pluginOptions___maxWidth
+    pluginOptions___plugins___pluginOptions___name
+    pluginOptions___plugins___pluginOptions___pathPrefix
+    pluginOptions___plugins___pluginOptions___showCaptions
+    pluginOptions___plugins___pluginOptions___tracedSVG
+    pluginOptions___plugins___pluginOptions___withWebp
+    pluginOptions___plugins___pluginOptions___wrapperStyle
+    pluginOptions___plugins___resolve
+    pluginOptions___plugins___ssrAPIs
+    pluginOptions___plugins___version
+    pluginOptions___showCaptions
+    pluginOptions___tracedSVG
+    pluginOptions___withWebp
+    pluginOptions___wrapperStyle
     resolve
     ssrAPIs
     version
@@ -1622,6 +2068,7 @@ input FileFilterInput {
     blocks: IntQueryOperatorInput
     changeTime: DateQueryOperatorInput
     childImageSharp: ImageSharpFilterInput
+    childMarkdownRemark: MarkdownRemarkFilterInput
     children: NodeFilterListInput
     ctime: DateQueryOperatorInput
     ctimeMs: FloatQueryOperatorInput
@@ -1778,6 +2225,71 @@ input InternalFilterInput {
     type: StringQueryOperatorInput
 }
 
+input JSONQueryOperatorInput {
+    eq: JSON
+    glob: JSON
+    in: [JSON]
+    ne: JSON
+    nin: [JSON]
+    regex: JSON
+}
+
+input MarkdownHeadingFilterInput {
+    depth: IntQueryOperatorInput
+    value: StringQueryOperatorInput
+}
+
+input MarkdownHeadingFilterListInput {
+    elemMatch: MarkdownHeadingFilterInput
+}
+
+input MarkdownRemarkFieldsFilterInput {
+    slug: StringQueryOperatorInput
+}
+
+input MarkdownRemarkFilterInput {
+    children: NodeFilterListInput
+    excerpt: StringQueryOperatorInput
+    excerptAst: JSONQueryOperatorInput
+    fields: MarkdownRemarkFieldsFilterInput
+    fileAbsolutePath: StringQueryOperatorInput
+    frontmatter: MarkdownRemarkFrontmatterFilterInput
+    headings: MarkdownHeadingFilterListInput
+    html: StringQueryOperatorInput
+    htmlAst: JSONQueryOperatorInput
+    id: StringQueryOperatorInput
+    internal: InternalFilterInput
+    parent: NodeFilterInput
+    rawMarkdownBody: StringQueryOperatorInput
+    tableOfContents: StringQueryOperatorInput
+    timeToRead: IntQueryOperatorInput
+    wordCount: MarkdownWordCountFilterInput
+}
+
+input MarkdownRemarkFrontmatterFilterInput {
+    date: DateQueryOperatorInput
+    description: StringQueryOperatorInput
+    featuredimage: StringQueryOperatorInput
+    featuredpost: BooleanQueryOperatorInput
+    heading: StringQueryOperatorInput
+    image: FileFilterInput
+    subheading: StringQueryOperatorInput
+    tags: StringQueryOperatorInput
+    templateKey: StringQueryOperatorInput
+    title: StringQueryOperatorInput
+}
+
+input MarkdownRemarkSortInput {
+    fields: [MarkdownRemarkFieldsEnum]
+    order: [SortOrderEnum] = [ASC]
+}
+
+input MarkdownWordCountFilterInput {
+    paragraphs: IntQueryOperatorInput
+    sentences: IntQueryOperatorInput
+    words: IntQueryOperatorInput
+}
+
 input NodeFilterInput {
     children: NodeFilterListInput
     id: StringQueryOperatorInput
@@ -1814,11 +2326,17 @@ input SiteFilterInput {
     siteMetadata: SiteSiteMetadataFilterInput
 }
 
+input SitePageContextFilterInput {
+    id: StringQueryOperatorInput
+    tag: StringQueryOperatorInput
+}
+
 input SitePageFilterInput {
     children: NodeFilterListInput
     component: StringQueryOperatorInput
     componentChunkName: StringQueryOperatorInput
     componentPath: StringQueryOperatorInput
+    context: SitePageContextFilterInput
     id: StringQueryOperatorInput
     internal: InternalFilterInput
     internalComponentName: StringQueryOperatorInput
@@ -1891,16 +2409,51 @@ input SitePluginPackageJsonPeerDependenciesFilterListInput {
 }
 
 input SitePluginPluginOptionsFilterInput {
-    background_color: StringQueryOperatorInput
-    display: StringQueryOperatorInput
-    icon: StringQueryOperatorInput
+    backgroundColor: StringQueryOperatorInput
+    destinationDir: StringQueryOperatorInput
+    ignoreFileExtensions: StringQueryOperatorInput
+    linkImagesToOriginal: BooleanQueryOperatorInput
+    maxWidth: IntQueryOperatorInput
     modulePath: StringQueryOperatorInput
     name: StringQueryOperatorInput
     path: StringQueryOperatorInput
     pathCheck: BooleanQueryOperatorInput
-    short_name: StringQueryOperatorInput
-    start_url: StringQueryOperatorInput
-    theme_color: StringQueryOperatorInput
+    pathPrefix: StringQueryOperatorInput
+    pathToConfigModule: StringQueryOperatorInput
+    plugins: SitePluginPluginOptionsPluginsFilterListInput
+    showCaptions: BooleanQueryOperatorInput
+    tracedSVG: BooleanQueryOperatorInput
+    withWebp: BooleanQueryOperatorInput
+    wrapperStyle: StringQueryOperatorInput
+}
+
+input SitePluginPluginOptionsPluginsFilterInput {
+    browserAPIs: StringQueryOperatorInput
+    id: StringQueryOperatorInput
+    name: StringQueryOperatorInput
+    pluginFilepath: StringQueryOperatorInput
+    pluginOptions: SitePluginPluginOptionsPluginsPluginOptionsFilterInput
+    resolve: StringQueryOperatorInput
+    ssrAPIs: StringQueryOperatorInput
+    version: StringQueryOperatorInput
+}
+
+input SitePluginPluginOptionsPluginsFilterListInput {
+    elemMatch: SitePluginPluginOptionsPluginsFilterInput
+}
+
+input SitePluginPluginOptionsPluginsPluginOptionsFilterInput {
+    backgroundColor: StringQueryOperatorInput
+    destinationDir: StringQueryOperatorInput
+    ignoreFileExtensions: StringQueryOperatorInput
+    linkImagesToOriginal: BooleanQueryOperatorInput
+    maxWidth: IntQueryOperatorInput
+    name: StringQueryOperatorInput
+    pathPrefix: StringQueryOperatorInput
+    showCaptions: BooleanQueryOperatorInput
+    tracedSVG: BooleanQueryOperatorInput
+    withWebp: BooleanQueryOperatorInput
+    wrapperStyle: StringQueryOperatorInput
 }
 
 input SitePluginSortInput {

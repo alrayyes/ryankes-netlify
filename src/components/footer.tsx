@@ -3,7 +3,7 @@ import Img from 'gatsby-image'
 import React from 'react'
 
 import styled from 'styled-components'
-import { Container } from './css/main'
+import { Container } from '../styles/main'
 
 const Wrapper = styled.footer`
   width: 100%;

@@ -5,7 +5,7 @@ import React from 'react'
 import styled from 'styled-components'
 // tslint:disable-next-line:no-submodule-imports
 import { Bars } from 'styled-icons/fa-solid/Bars'
-import { Container, FloatRight } from './css/main'
+import { Container, FloatRight } from '../styles/main'
 
 const Wrapper = styled.nav`
   height: 6.0rem;
@@ -27,7 +27,7 @@ const SectionLink = styled(Link)`
 interface IInputProps {
   theme: {
     color: {
-      bg: string,
+      altBg: string,
     },
   }
 }
@@ -37,7 +37,7 @@ const Input = styled.input<IInputProps>`
 
   @media only screen and (max-width : 768px) {
     &:checked + label {
-      color: ${(props) => props.theme.color.bg};
+      color: ${(props) => props.theme.color.altBg};
     }
     &:checked + label + ul {
       visibility: visible;
@@ -97,15 +97,7 @@ const ListElement = styled.li`
       text-align: center;
 `
 
-interface IPageLinkProps {
-  theme: {
-    color: {
-      fg: string,
-    },
-  }
-}
-
-const PageLink = styled(Link)<IPageLinkProps>`
+const PageLink = styled(Link)`
   margin-left: 1.0rem;
   margin-right: 1.0rem;
   display: inline;

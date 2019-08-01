@@ -1,9 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby'
-import * as React from 'react'
+import React from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { Theme } from '../theme'
 
-import { Wrapper } from './css/main'
+import { Wrapper } from '../styles/main'
+import { Theme } from '../theme'
 import Footer from './footer'
 
 import Nav from './nav'

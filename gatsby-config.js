@@ -4,7 +4,7 @@ module.exports = {
     {
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/src/img`,
       },
       resolve: `gatsby-source-filesystem`,
 
@@ -19,8 +19,8 @@ module.exports = {
     },
     {
       options: {
-        name: 'images',
-        path: `${__dirname}/src/img`,
+        name: 'uploads',
+        path: `${__dirname}/static/img`,
       },
       resolve: 'gatsby-source-filesystem',
 
@@ -37,30 +37,29 @@ module.exports = {
     },
     `gatsby-plugin-typescript`,
     {
+      resolve: 'gatsby-transformer-remark',
       options: {
         plugins: [
           {
+            resolve: 'gatsby-remark-relative-images',
             options: {
               name: 'uploads',
             },
-            resolve: 'gatsby-remark-relative-images',
-
           },
           {
+            resolve: 'gatsby-remark-images',
             options: {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
               maxWidth: 2048,
             },
-            resolve: 'gatsby-remark-images',
-
           },
           {
+            resolve: 'gatsby-remark-copy-linked-files',
             options: {
               destinationDir: 'static',
             },
-            resolve: 'gatsby-remark-copy-linked-files',
 
           },
           {
@@ -68,17 +67,15 @@ module.exports = {
           },
         ],
       },
-      resolve: 'gatsby-transformer-remark',
-
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
     {
-      options: {
-        modulePath: `${__dirname}/src/cms/cms.ts`,
-      },
       resolve: 'gatsby-plugin-netlify-cms',
+      options: {
+        modulePath: `${__dirname}/src/cms/cms.tsx`,
+      },
 
     },
     'gatsby-plugin-netlify',
