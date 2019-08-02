@@ -119,6 +119,7 @@ interface IIndexPageData {
     image: any,
     heading: string,
     subheading: string,
+    pgpKey: string,
   }
 }
 
@@ -128,25 +129,25 @@ const IndexPage: ReactFunctionComponent<IIndexPageData> = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home"/>
-      <IndexPageTemplate image={frontmatter.image} heading={frontmatter.heading} subheading={frontmatter.subheading}/>
+      <IndexPageTemplate image={frontmatter.image} heading={frontmatter.heading} subheading={frontmatter.subheading} pgpKey={frontmatter.pgpKey}/>
     </Layout>
   )
 }
 
-export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplateProps> = ({ image, heading, subheading, publicKey }) => {
+export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({ image, heading, subheading, pgpKey }) => {
   return (
     <Section>
       <About>
         <AvatarImage image={image}/>
         <Heading>{heading}</Heading>
         <Subheading>{subheading}</Subheading>
-        <Heading>{publicKey}</Heading>
+        <Heading>asdf {pgpKey}</Heading>
         <Icons>
           <Icon url="//github.com/alrayyes" icon={Github} label="Github"/>
           <Icon url="//twitter.com/alrayyes" icon={Twitter} label="Twitter"/>
           <Icon url="//www.last.fm/user/alrayyes" icon={Lastfm} label="Last.fm"/>
           <Icon url="//keybase.io/alrayyes" icon={Keybase} label="Last.fm"/>
-          <Icon url={publicKey} icon={Key} label="PGP Key"/>
+          <Icon url={pgpKey} icon={Key} label="PGP Key"/>
           <Icon url="/feed.xml" icon={Rss} label="RSS"/>
           <Icon url="https://social.ryankes.eu/@ryan" icon={Mastodon} label="Mastodon"/>
         </Icons>
@@ -155,11 +156,11 @@ export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplateProps>
   )
 }
 
-interface IIndexPageTemplateProps {
+interface IIndexPageTemplate {
   image: any
   heading: string
   subheading: string
-  publicKey: string
+  pgpKey: string
 }
 
 export const pageQuery = graphql`
@@ -175,6 +176,7 @@ export const pageQuery = graphql`
                 }
                 heading
                 subheading
+                pgpKey
             }
         }
     }

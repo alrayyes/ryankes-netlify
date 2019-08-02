@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { IndexPageTemplate } from '../../templates/index-page'
 
-const IndexPagePreview: React.FunctionComponent = ({ entry, getAsset }) => {
+const IndexPagePreview: React.FunctionComponent = ({ entry }) => {
   const data = entry.getIn(['data']).toJS()
 
   if (data) {
@@ -11,6 +11,7 @@ const IndexPagePreview: React.FunctionComponent = ({ entry, getAsset }) => {
         image={data.image}
         heading={data.heading}
         subheading={data.subheading}
+        pgpKey={data.pgpKey}
       />
     )
   } else {

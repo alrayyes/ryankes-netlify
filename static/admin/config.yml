@@ -64,7 +64,7 @@ collections:
         fields:
           - {label: "Template Key", name: "templateKey", widget: "hidden", default: "index-page"}
           - {label: "Image", name: "image", widget: image}
-          - {label: "PGP Key", name: "key", widget: file}
+          - {label: "PGP Key", name: "pgpKey", widget: file}
           - {label: "Heading", name: "heading", widget: "string"}
           - {label: "Subheading", name: "subheading", widget: "string"}
 
