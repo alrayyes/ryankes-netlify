@@ -3,6 +3,7 @@ import React from 'react'
 import { StyleSheetManager } from 'styled-components'
 import typography from '../utils/typography'
 
+import ContentPagePreview from './preview-templates/ContentPagePreview'
 import IndexPagePreview from './preview-templates/IndexPagePreview'
 
 /**
@@ -44,11 +45,8 @@ CMS.registerPreviewTemplate('index', (props) => (
     <IndexPagePreview {...props} />
   </CSSInjector>
 ))
-
-/*
-import AboutPagePreview from "./preview-templates/AboutPagePreview";
-import BlogPostPreview from "./preview-templates/BlogPostPreview";
-
-CMS.registerPreviewTemplate("about", AboutPagePreview);
-CMS.registerPreviewTemplate("blog", BlogPostPreview);
-*/
+CMS.registerPreviewTemplate('pages', (props) => (
+  <CSSInjector>
+    <ContentPagePreview {...props} />
+  </CSSInjector>
+))

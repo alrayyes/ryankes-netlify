@@ -2,14 +2,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { ContentPageTemplate } from '../../templates/content-page'
 
-const ContentPagePreview: React.FunctionComponent = ({ entry, getAsset }) => {
+const ContentPagePreview: React.FunctionComponent = ({ entry, widgetFor }) => {
   const data = entry.getIn(['data']).toJS()
 
   if (data) {
     return (
       <ContentPageTemplate
         title={data.title}
-        body={data.body}
+        body={widgetFor('body')}
       />
     )
   } else {
@@ -19,11 +19,11 @@ const ContentPagePreview: React.FunctionComponent = ({ entry, getAsset }) => {
   }
 }
 
-IndexPagePreview.propTypes = {
+ContentPagePreview.propTypes = {
   entry: PropTypes.shape({
     getIn: PropTypes.func,
   }),
-  getAsset: PropTypes.func,
+  widgetFor: PropTypes.func,
 }
 
 export default ContentPagePreview

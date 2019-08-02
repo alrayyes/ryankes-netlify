@@ -65,6 +65,14 @@ table tr td:last-child,
 table tr th:last-child {
   border-right: 0;
 }
+
+p {
+  margin: 2.0rem 0 2.0rem 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+margin: 6.4rem 0 .32rem 0;
+}
 `
 
 const QUERY = graphql`
