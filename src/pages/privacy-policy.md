@@ -1,6 +1,6 @@
 ---
 templateKey: content-page
-title: Privacy Policy2
+title: Privacy Policy
 date: 2019-06-28T17:13:53.000Z
 ---
 
