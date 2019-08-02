@@ -133,19 +133,20 @@ const IndexPage: ReactFunctionComponent<IIndexPageData> = ({ data }) => {
   )
 }
 
-export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplateProps> = ({ image, heading, subheading }) => {
+export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplateProps> = ({ image, heading, subheading, publicKey }) => {
   return (
     <Section>
       <About>
         <AvatarImage image={image}/>
         <Heading>{heading}</Heading>
         <Subheading>{subheading}</Subheading>
+        <Heading>{publicKey}</Heading>
         <Icons>
           <Icon url="//github.com/alrayyes" icon={Github} label="Github"/>
           <Icon url="//twitter.com/alrayyes" icon={Twitter} label="Twitter"/>
           <Icon url="//www.last.fm/user/alrayyes" icon={Lastfm} label="Last.fm"/>
           <Icon url="//keybase.io/alrayyes" icon={Keybase} label="Last.fm"/>
-          <Icon url="/key.asc" icon={Key} label="PGP Key"/>
+          <Icon url={publicKey} icon={Key} label="PGP Key"/>
           <Icon url="/feed.xml" icon={Rss} label="RSS"/>
           <Icon url="https://social.ryankes.eu/@ryan" icon={Mastodon} label="Mastodon"/>
         </Icons>
@@ -158,6 +159,7 @@ interface IIndexPageTemplateProps {
   image: any
   heading: string
   subheading: string
+  publicKey: string
 }
 
 export const pageQuery = graphql`
