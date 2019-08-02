@@ -1,7 +1,7 @@
 ---
-templateKey: content-page 
-title: "Privacy Policy"
-date: 2019-06-28T19:13:53+02:00
+templateKey: content-page
+title: Privacy Policy2
+date: 2019-06-28T17:13:53.000Z
 ---
 
 Your privacy is important to us. It is Ryan's Namepage's policy to respect your privacy regarding any information we may collect from you across our website, http://ryankes.eu, and other sites we own and operate.
