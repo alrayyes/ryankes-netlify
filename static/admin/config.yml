@@ -56,7 +56,7 @@ collections:
     label: "Static Pages"
     label_singular: "Static Page"
     delete: false
-    summary: "Version: {{version}} - Home"
+    summary: "Home  - {{heading}}"
     files:
       - file: "src/pages/index.md"
         name: "index"
