@@ -141,7 +141,6 @@ export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({
         <AvatarImage image={image}/>
         <Heading>{heading}</Heading>
         <Subheading>{subheading}</Subheading>
-        <Heading>asdf {pgpKey}</Heading>
         <Icons>
           <Icon url="//github.com/alrayyes" icon={Github} label="Github"/>
           <Icon url="//twitter.com/alrayyes" icon={Twitter} label="Twitter"/>
