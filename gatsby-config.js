@@ -1,9 +1,15 @@
 module.exports = {
   plugins: [
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-styled-components`,
-    `gatsby-transformer-sharp`,
+    /**
+     * Media folder must be listed *before* other content or graphql breaks and returns images/files as strings
+     */
+    {
+      options: {
+        name: 'uploads',
+        path: `${__dirname}/static/uploads/`,
+      },
+      resolve: 'gatsby-source-filesystem',
+    },
     {
       options: {
         name: `images`,
@@ -22,13 +28,6 @@ module.exports = {
     },
     {
       options: {
-        name: 'uploads',
-        path: `${__dirname}/static/uploads`,
-      },
-      resolve: 'gatsby-source-filesystem',
-    },
-    {
-      options: {
         pathToConfigModule: `src/utils/typography`,
       },
       resolve: `gatsby-plugin-typography`,
@@ -41,9 +40,6 @@ module.exports = {
         plugins: [
           {
             resolve: 'gatsby-remark-relative-images',
-            options: {
-              name: 'uploads',
-            }
           },
           {
             resolve: 'gatsby-remark-images',
@@ -52,6 +48,7 @@ module.exports = {
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
               maxWidth: 2048,
+              withWebp: true,
             },
           },
           {
@@ -76,6 +73,10 @@ module.exports = {
       },
 
     },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-styled-components`,
     'gatsby-plugin-netlify',
   ],
   siteMetadata: {

@@ -70,12 +70,13 @@ const AvatarImage: React.FunctionComponent<IAvatarImage> = ({ image }) => {
     border-radius: 50%
 `
 
-  if(image.childImageSharp == undefined) {
-    return <Avatar>
-      <PreviewImage src={image}/>
-    </Avatar>
-  }
-  else {
+  if (image.childImageSharp === undefined) {
+    return (
+      <Avatar>
+        <PreviewImage src={image}/>
+      </Avatar>
+    )
+  } else {
     return (
       <Avatar>
         <Image fluid={image.childImageSharp.fluid}/>
@@ -129,12 +130,20 @@ const IndexPage: ReactFunctionComponent<IIndexPageData> = ({ data }) => {
   return (
     <Layout>
       <SEO title="Home"/>
-      <IndexPageTemplate image={frontmatter.image} heading={frontmatter.heading} subheading={frontmatter.subheading} pgpKey={frontmatter.pgpKey}/>
+      <IndexPageTemplate
+        image={frontmatter.image}
+        heading={frontmatter.heading}
+        subheading={frontmatter.subheading}
+        pgpKey={frontmatter.pgpKey.publicURL}
+      />
     </Layout>
   )
 }
 
-export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({ image, heading, subheading, pgpKey }) => {
+export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({ image,
+                                                                                 heading,
+                                                                                 subheading,
+                                                                                 pgpKey }) => {
   return (
     <Section>
       <About>
@@ -146,7 +155,7 @@ export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({
           <Icon url="//twitter.com/alrayyes" icon={Twitter} label="Twitter"/>
           <Icon url="//www.last.fm/user/alrayyes" icon={Lastfm} label="Last.fm"/>
           <Icon url="//keybase.io/alrayyes" icon={Keybase} label="Last.fm"/>
-          <Icon url={pgpKey.publicURL} icon={Key} label="PGP Key"/>
+          <Icon url={pgpKey} icon={Key} label="PGP Key"/>
           <Icon url="/feed.xml" icon={Rss} label="RSS"/>
           <Icon url="https://social.ryankes.eu/@ryan" icon={Mastodon} label="Mastodon"/>
         </Icons>
@@ -159,7 +168,7 @@ interface IIndexPageTemplate {
   image: any
   heading: string
   subheading: string
-  pgpKey: any
+  pgpKey: string
 }
 
 export const pageQuery = graphql`
