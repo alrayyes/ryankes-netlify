@@ -1,6 +1,9 @@
 module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-transformer-sharp`,
     {
       options: {
         name: `images`,
@@ -20,14 +23,11 @@ module.exports = {
     {
       options: {
         name: 'uploads',
-        path: `${__dirname}/static/img`,
+        path: `${__dirname}/static`,
       },
       resolve: 'gatsby-source-filesystem',
 
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-styled-components`,
     {
       options: {
         pathToConfigModule: `src/utils/typography`,
