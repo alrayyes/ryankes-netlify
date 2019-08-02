@@ -23,7 +23,7 @@ module.exports = {
     {
       options: {
         name: 'uploads',
-        path: `${__dirname}/src/uploads`,
+        path: `${__dirname}/static/uploads`,
       },
       resolve: 'gatsby-source-filesystem',
     },
@@ -41,9 +41,6 @@ module.exports = {
         plugins: [
           {
             resolve: 'gatsby-remark-relative-images',
-            options: {
-              name: 'uploads',
-            },
           },
           {
             resolve: 'gatsby-remark-images',
@@ -59,7 +56,6 @@ module.exports = {
             options: {
               destinationDir: 'static',
             },
-
           },
           {
             resolve: 'gatsby-remark-smartypants',

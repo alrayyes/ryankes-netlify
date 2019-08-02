@@ -146,7 +146,7 @@ export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({
           <Icon url="//twitter.com/alrayyes" icon={Twitter} label="Twitter"/>
           <Icon url="//www.last.fm/user/alrayyes" icon={Lastfm} label="Last.fm"/>
           <Icon url="//keybase.io/alrayyes" icon={Keybase} label="Last.fm"/>
-          <Icon url={pgpKey} icon={Key} label="PGP Key"/>
+          <Icon url={pgpKey.publicURL} icon={Key} label="PGP Key"/>
           <Icon url="/feed.xml" icon={Rss} label="RSS"/>
           <Icon url="https://social.ryankes.eu/@ryan" icon={Mastodon} label="Mastodon"/>
         </Icons>
@@ -159,7 +159,7 @@ interface IIndexPageTemplate {
   image: any
   heading: string
   subheading: string
-  pgpKey: string
+  pgpKey: any
 }
 
 export const pageQuery = graphql`
@@ -175,7 +175,9 @@ export const pageQuery = graphql`
                 }
                 heading
                 subheading
-                pgpKey
+                pgpKey {
+                    publicURL
+                }
             }
         }
     }
