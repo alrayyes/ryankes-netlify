@@ -116,15 +116,21 @@ const Icon: React.FunctionComponent<IconPropsInterface> = (props) => {
 }
 
 interface IIndexPageData {
-  markdownRemark: {
-    image: any,
-    heading: string,
-    subheading: string,
-    pgpKey: string,
+  data: {
+    markdownRemark: {
+      frontmatter: {
+        image: any,
+        heading: string,
+        subheading: string,
+        pgpKey: {
+          publicURL: string,
+        },
+      },
+    },
   }
 }
 
-const IndexPage: ReactFunctionComponent<IIndexPageData> = ({ data }) => {
+const IndexPage: React.FunctionComponent<IIndexPageData> = ({ data }) => {
   const { frontmatter } = data.markdownRemark
 
   return (
@@ -140,10 +146,12 @@ const IndexPage: ReactFunctionComponent<IIndexPageData> = ({ data }) => {
   )
 }
 
-export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({ image,
+export const IndexPageTemplate: React.FunctionComponent<IIndexPageTemplate> = ({
+                                                                                 image,
                                                                                  heading,
                                                                                  subheading,
-                                                                                 pgpKey }) => {
+                                                                                 pgpKey,
+                                                                               }) => {
   return (
     <Section>
       <About>
@@ -171,6 +179,7 @@ interface IIndexPageTemplate {
   pgpKey: string
 }
 
+// noinspection JSUnusedGlobalSymbols,Annotator
 export const pageQuery = graphql`
     query IndexPageTemplate {
         markdownRemark(frontmatter: { templateKey: { eq: "index-page" } }) {
