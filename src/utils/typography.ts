@@ -7,6 +7,7 @@ GithubTheme.plugins = [
 ]
 
 GithubTheme.overrideThemeStyles = () => ({
+  /*
   'a': {
     color: '#212121',
   },
@@ -16,6 +17,7 @@ GithubTheme.overrideThemeStyles = () => ({
   'label:hover, label:focus': {
     color: '#1565c0',
   },
+   */
 })
 
 const typography = new Typography(

@@ -3,7 +3,7 @@ import Img from 'gatsby-image'
 import React from 'react'
 
 import styled from 'styled-components'
-import { Container } from '../styles/main'
+import { Container, MenuLinkCss } from '../styles/main'
 
 const Wrapper = styled.footer`
   width: 100%;
@@ -20,6 +20,7 @@ const FooterLink = styled(Link)`
   margin-left: 1.0rem;
   margin-right: 1.0rem;
   display: inline;
+  ${MenuLinkCss}
 `
 
 // noinspection Annotator

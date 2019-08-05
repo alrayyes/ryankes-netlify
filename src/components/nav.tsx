@@ -5,7 +5,7 @@ import React from 'react'
 import styled from 'styled-components'
 // tslint:disable-next-line:no-submodule-imports
 import { Bars } from 'styled-icons/fa-solid/Bars'
-import { Container, FloatRight } from '../styles/main'
+import { Container, FloatRight, MenuLinkCss } from '../styles/main'
 
 const Wrapper = styled.nav`
   height: 6.0rem;
@@ -22,6 +22,7 @@ const SectionLink = styled(Link)`
 
   display: inline;
   line-height: 6.0rem;
+  ${MenuLinkCss}
 `
 
 interface IInputProps {
@@ -102,6 +103,7 @@ const PageLink = styled(Link)`
   margin-right: 1.0rem;
   display: inline;
   line-height: 6.0rem;
+  ${MenuLinkCss}
 `
 
 const BarsIcon = styled(Bars)`
@@ -109,12 +111,12 @@ const BarsIcon = styled(Bars)`
   vertical-align: 0;
 `
 
-interface IMenuLinkProps {
+interface IMenuLink {
   link: string
   name: string
 }
 
-const MenuLink: React.FunctionComponent<IMenuLinkProps> = (props) => (
+const MenuLink: React.FunctionComponent<IMenuLink> = (props) => (
   <ListElement>
     <PageLink to={props.link}>{props.name}</PageLink>
   </ListElement>

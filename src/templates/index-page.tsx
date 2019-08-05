@@ -22,7 +22,7 @@ import { StyledIcon } from 'styled-icons/types'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-import { Container, Fab } from '../styles/main'
+import { Container, Fab, MenuLinkCss } from '../styles/main'
 
 const Section = styled.section`
   display: flex;
@@ -86,13 +86,13 @@ const AvatarImage: React.FunctionComponent<IAvatarImage> = ({ image }) => {
 
 }
 
-interface IconPropsInterface {
+interface IIcon {
   url: string
   icon: StyledIcon
   label: string
 }
 
-const Icon: React.FunctionComponent<IconPropsInterface> = (props) => {
+const Icon: React.FunctionComponent<IIcon> = (props) => {
   const IconImage = styled(props.icon)`
     ${Fab}
   `
@@ -104,6 +104,7 @@ const Icon: React.FunctionComponent<IconPropsInterface> = (props) => {
   const IconLink = styled.a`
     margin-left: 1.0rem;
     margin-right: 1.0rem;
+    ${MenuLinkCss}
   `
 
   return (

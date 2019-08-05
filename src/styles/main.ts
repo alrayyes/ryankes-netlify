@@ -23,6 +23,13 @@ export const FloatRight = css`
   float: right;
 `
 
+export const MenuLinkCss = css`
+  color: #212121;
+  :hover, :focus: {
+    color: #1565c0;
+  }
+`
+
 export const GlobalStyle = createGlobalStyle`
 *,
 *:after,
