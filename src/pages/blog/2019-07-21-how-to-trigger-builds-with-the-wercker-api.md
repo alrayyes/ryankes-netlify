@@ -2,7 +2,7 @@
 templateKey: blog-post
 title: How To Trigger Builds With the Wercker API
 date: 2016-09-24T11:50:00.000Z
-featuredimage: /img/header.jpg
+featuredimage: /uploads/how-to-trigger-wercker-builds-with-ifttt_header.jpg
 tags:
   - wercker
   - tutorial
