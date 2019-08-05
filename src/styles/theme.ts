@@ -1,25 +1,10 @@
-interface DefaultTheme {
-  font: {
-    code: string,
-  }
-  color: {
-    bg: string
-    altBg: string
-    altFg: string,
-  }
-  colorIntroverted: {
-    bg: string
-    fg: string
-    altBg: string
-    altFg: string,
-  }
-}
+import { DefaultTheme } from 'styled-components'
 
 export const Theme: DefaultTheme = {
   color: {
     altBg: `#E0E0E0`,
     altFg: `#000`,
-    bg: `#FAFAFA`,
+    bg: `#fafafa`,
   },
   colorIntroverted: {
     altBg: `#424242`,

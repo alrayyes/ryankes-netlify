@@ -10,7 +10,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Helmet from 'react-helmet'
 
-function SEO({ description, lang, meta, title }) {
+interface ISEO {
+  description: string,
+  lang: string,
+  meta: any[],
+  title: string
+}
+
+function SEO({ description, lang, meta, title }: ISEO) {
   const { site } = useStaticQuery(
     graphql`
         query {

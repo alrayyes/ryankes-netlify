@@ -1,12 +1,12 @@
 import Typography from 'typography'
 import CodePlugin from 'typography-plugin-code'
-import BootstrapTheme from 'typography-theme-github'
+import GithubTheme from 'typography-theme-github'
 
-BootstrapTheme.plugins = [
+GithubTheme.plugins = [
   new CodePlugin(),
 ]
 
-BootstrapTheme.overrideThemeStyles = () => ({
+GithubTheme.overrideThemeStyles = () => ({
   'a': {
     color: '#212121',
   },
@@ -19,7 +19,7 @@ BootstrapTheme.overrideThemeStyles = () => ({
 })
 
 const typography = new Typography(
-  BootstrapTheme,
+  GithubTheme,
 )
 
 export default typography

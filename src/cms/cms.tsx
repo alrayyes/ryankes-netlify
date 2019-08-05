@@ -1,8 +1,12 @@
 import CMS from 'netlify-cms-app'
 import React from 'react'
-import { StyleSheetManager } from 'styled-components'
-import typography from '../utils/typography'
+// tslint:disable-next-line:no-submodule-imports
+import { renderToString } from 'react-dom/server'
+import { StyleSheetManager, ThemeProvider } from 'styled-components'
+import { GlobalStyle } from '../styles/main'
 
+import { Theme } from '../styles/theme'
+import typography from '../utils/typography'
 import ContentPagePreview from './preview-templates/ContentPagePreview'
 import IndexPagePreview from './preview-templates/IndexPagePreview'
 
@@ -10,30 +14,40 @@ import IndexPagePreview from './preview-templates/IndexPagePreview'
  * Needed to get styled components to work in Netlify Cms preview panel
  */
 class CSSInjector extends React.Component {
-  constructor(props) {
+  public state: {
+    iframeRef: HTMLElement,
+  }
+
+  constructor(props: any) {
     super(props)
 
+    const iframe = document.getElementsByTagName('iframe')[0]
+    const iframeHeadElem = iframe.contentDocument!.head
     this.state = {
-      iframeRef: '',
+      iframeRef: iframeHeadElem,
     }
   }
 
   public render() {
-    return (
-      <div>
-        {this.state.iframeRef && (
-          <StyleSheetManager target={this.state.iframeRef}>
-            {this.props.children}
-          </StyleSheetManager>
-        )}
-      </div>
+    /**
+     * For some reason this solves a rendering bug with globalstyles. Prevents an "unknown type" error". Don't know why
+     * but Jimmy crack corn and I don't care!
+     */
+    const html = renderToString(
+      <StyleSheetManager target={this.state.iframeRef}>
+        <ThemeProvider theme={Theme}>
+          <GlobalStyle/>
+        </ThemeProvider>
+      </StyleSheetManager>
     )
-  }
 
-  public componentDidMount() {
-    const iframe = document.getElementsByTagName('iframe')[0]
-    const iframeHeadElem = iframe.contentDocument.head
-    this.setState({ iframeRef: iframeHeadElem })
+    return (
+      <ThemeProvider theme={Theme}>
+        <StyleSheetManager target={this.state.iframeRef}>
+          {this.props.children}
+        </StyleSheetManager>
+      </ThemeProvider>
+    )
   }
 }
 

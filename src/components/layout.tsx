@@ -1,11 +1,9 @@
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
-import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-
-import { Wrapper } from '../styles/main'
-import { Theme } from '../theme'
+import styled, { ThemeProvider } from 'styled-components'
+import { GlobalStyle, Wrapper } from '../styles/main'
+import { Theme } from '../styles/theme'
 import Footer from './footer'
-
 import Nav from './nav'
 
 const Main = styled.main`
@@ -16,63 +14,6 @@ const Content = styled.div`
   display: flex;
   margin-top: 1.6rem;
   margin-bottom: 3.2rem;
-`
-
-interface IGlobalStyleProps {
-  theme: {
-    color: {
-      bg: string,
-      altFg: string,
-    },
-  }
-}
-
-const GlobalStyle = createGlobalStyle<IGlobalStyleProps>`
-*,
-*:after,
-*:before {
-  box-sizing: inherit;
-}
-
-html {
-  box-sizing: border-box;
-}
-
-body {
-  background-color: ${(props) => props.theme.color.bg};
-}
-
-th, td {
-  padding: 1.6rem;
-}
-table {
-  border-collapse: collapse;
-}
-table td, table th {
-  border: 2px solid ${(props) => props.theme.color.altFg};
-}
-table tr:first-child th {
-  border-top: 0;
-}
-table tr:last-child td {
-  border-bottom: 0;
-}
-table tr td:first-child,
-table tr th:first-child {
-  border-left: 0;
-}
-table tr td:last-child,
-table tr th:last-child {
-  border-right: 0;
-}
-
-p {
-  margin: 2.0rem 0 2.0rem 0;
-}
-
-h1, h2, h3, h4, h5, h6 {
-margin: 6.4rem 0 .32rem 0;
-}
 `
 
 const QUERY = graphql`
